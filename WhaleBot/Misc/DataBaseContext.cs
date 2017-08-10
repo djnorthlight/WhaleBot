@@ -1,0 +1,24 @@
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace WhaleBot
+{
+    public class DatabaseContext : DbContext
+    {
+        public DbSet<Poll> Polls { get; set; }
+        public DbSet<Permission> Permissions { get; set; }
+        public DbSet<RoleAssignment> RoleAssignments { get; set; }
+        public DbSet<LoggedMessage> LoggedMessages { get; set; }
+        public DbSet<GuildLoggingSetup> GuildLoggingSetups { get; set; }
+        public DbSet<GuildStarringSetup> GuildStarringSetups { get; set; }
+        public DbSet<StarredMessage> StarredMessages { get; set; }
+        public DbSet<WhaleHunterCount> WhaleHunterCounts { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite(@"Data Source=\\OLIWIER-PC\ssl log\DataBase.db");
+        }
+    }
+}
