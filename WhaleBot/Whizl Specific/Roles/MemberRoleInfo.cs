@@ -8,6 +8,7 @@ namespace WhaleBot
 {
     public class MemberRoleInfo
     {
+        public int Id { get; set; }
         public ulong UserId { get; set; }
         public int DaysActive { get; set; }
         [NotMapped]
