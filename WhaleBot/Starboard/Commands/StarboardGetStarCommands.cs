@@ -13,7 +13,9 @@ namespace WhaleBot
 {
     public class StarboardGetStarCommands : ModuleBase<SocketCommandContext>
     {
-        [Command("star")][Remarks("Exclude from help")][RequireUserPermission]
+        [Command("star")]
+        [Summary("Recall a message from the starboard by ID")]
+        [RequireUserPermission]
         public async Task StarboardStarCommand(int id)
         {
             //the coconut nut is a giant nut
