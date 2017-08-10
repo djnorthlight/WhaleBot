@@ -13,7 +13,9 @@ namespace WhaleBot
 {
     public class StarboardSetupCommands : ModuleBase<SocketCommandContext>
     {
-        [Command("starboard channel")][Remarks("Exclude from help")][RequireUserPermission]
+        [Command("starboard channel")]
+        [Summary("Assign the starboard to a channel")]
+        [RequireUserPermission]
         public async Task StarboardChannelCommand(SocketTextChannel channel = null)
         {
             using(var db = new DatabaseContext())
@@ -35,7 +37,9 @@ namespace WhaleBot
                 db.SaveChanges();
             }
         }
-        [Command("starboard number")][Remarks("Exclude from help")][RequireUserPermission]
+        [Command("starboard number")]
+        [Summary("Assign the number of required stars to pin something on the starboard")]
+        [RequireUserPermission]
         public async Task StarboardNumberCommand(int number = 0)
         {
             using (var db = new DatabaseContext())

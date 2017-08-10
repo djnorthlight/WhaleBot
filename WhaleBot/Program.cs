@@ -74,9 +74,6 @@ namespace WhaleBot
 
         private IServiceProvider ConfigureServices()
         {
-            // Configure logging
-
-            // Configure services
             var services = new ServiceCollection()
                 .AddSingleton(client)
                 .AddSingleton(new ReactionHandler(client))
@@ -93,17 +90,10 @@ namespace WhaleBot
                 .AddSingleton(new LoggingHandler(client))
                 .AddSingleton(new StatusUpdatesHandler(client))
                 .AddSingleton(new StarboardReactionAddingHandler(client))
-                .AddSingleton(new StarboardReactionRemovingHandler(client))
-                .AddSingleton(new ActiveDaysDetectionHandler(client))
-
-
-
-
+                .AddSingleton(new StarboardReactionRemovingHandler(client))<<<<<<< dev
+                .AddSingleton(new ActiveDaysDetectionHandler(client))>>>>>>> master
                 .AddSingleton(new CommandService(new CommandServiceConfig { CaseSensitiveCommands = false, ThrowOnError = false }));
-
-
             var provider = services.BuildServiceProvider();
-            // Autowire and create these dependencies now
 
             return provider;
         }
