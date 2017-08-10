@@ -11,14 +11,14 @@ namespace WhaleBot
         public ulong UserId { get; set; }
         public int DaysActive { get; set; }
         [NotMapped]
-        public DateTime LastActive { get; set; }
+        public DateTime NextDay { get; set; }
 
 
         [Column]
-        public string LastActiveTranslation
+        public string NextDayTranslation
         {
-            get => JsonConvert.SerializeObject(LastActive);
-            set => LastActive = JsonConvert.DeserializeObject<DateTime>(value.ToString());
+            get => JsonConvert.SerializeObject(NextDay);
+            set => NextDay = JsonConvert.DeserializeObject<DateTime>(value.ToString());
         }
     }
 }

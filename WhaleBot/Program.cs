@@ -94,6 +94,7 @@ namespace WhaleBot
                 .AddSingleton(new StatusUpdatesHandler(client))
                 .AddSingleton(new StarboardReactionAddingHandler(client))
                 .AddSingleton(new StarboardReactionRemovingHandler(client))
+                .AddSingleton(new ActiveDaysDetectionHandler(client))
 
 
 
