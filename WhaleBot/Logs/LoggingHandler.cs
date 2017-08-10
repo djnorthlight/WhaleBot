@@ -62,6 +62,7 @@ namespace WhaleBot
             }
 
             if (setup?.EditChannelId == 0) return;
+            if (arg2.Content == "") return;
 
             await (arg3 as SocketGuildChannel).Guild.GetTextChannel(setup.EditChannelId).SendMessageAsync("", false, new EmbedBuilder
             {
