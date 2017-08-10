@@ -15,7 +15,7 @@ namespace WhaleBot
     {
         [Command("edited")]
         [RequireUserPermission]
-        [Summary("Returns a file with a number of edited messages\n**Syntax:** `deleted @user/#channel number` User or channel are optional")]
+        [Summary("Returns a file with a number of edited messages\n**Syntax:** `edited @user/#channel number` User or channel are optional")]
         public async Task EditedCommand(int number)
         {
             using (var db = new DatabaseContext())
