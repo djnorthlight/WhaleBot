@@ -36,21 +36,28 @@ namespace WhaleBot
                     info.NextDay.AddDays(1);
                     info.DaysActive++;
                 }
+                if (info.NextDay.Day > DateTime.Now.Day)
+                {
+                    info.NextDay = DateTime.Now;
+                    info.DaysActive = 0;
+                }
+
                 switch (info.DaysActive)
                 {
                     case 3:
-                        if ((arg.Author as SocketGuildUser).Roles.Any(x => x.Id == (ulong)RoleLevel.Recognised)) (arg.Author as SocketGuildUser).AddRoleAsync((arg.Channel as SocketGuildChannel).Guild.GetRole((ulong)RoleLevel.Recognised));
+                        if (!(arg.Author as SocketGuildUser).Roles.Any(x => x.Id == (ulong)RoleLevel.Recognised)) (arg.Author as SocketGuildUser).AddRoleAsync((arg.Channel as SocketGuildChannel).Guild.GetRole((ulong)RoleLevel.Recognised));
                         break;
                     case 5:
-                        if ((arg.Author as SocketGuildUser).Roles.Any(x => x.Id == (ulong)RoleLevel.Frequent)) (arg.Author as SocketGuildUser).AddRoleAsync((arg.Channel as SocketGuildChannel).Guild.GetRole((ulong)RoleLevel.Frequent));
+                        if (!(arg.Author as SocketGuildUser).Roles.Any(x => x.Id == (ulong)RoleLevel.Frequent)) (arg.Author as SocketGuildUser).AddRoleAsync((arg.Channel as SocketGuildChannel).Guild.GetRole((ulong)RoleLevel.Frequent));
                         break;
                     case 7:
-                        if ((arg.Author as SocketGuildUser).Roles.Any(x => x.Id == (ulong)RoleLevel.Active)) (arg.Author as SocketGuildUser).AddRoleAsync((arg.Channel as SocketGuildChannel).Guild.GetRole((ulong)RoleLevel.Active));
+                        if (!(arg.Author as SocketGuildUser).Roles.Any(x => x.Id == (ulong)RoleLevel.Active)) (arg.Author as SocketGuildUser).AddRoleAsync((arg.Channel as SocketGuildChannel).Guild.GetRole((ulong)RoleLevel.Active));
                         break;
                     case 14:
-                        if ((arg.Author as SocketGuildUser).Roles.Any(x => x.Id == (ulong)RoleLevel.Hyperactive)) (arg.Author as SocketGuildUser).AddRoleAsync((arg.Channel as SocketGuildChannel).Guild.GetRole((ulong)RoleLevel.Hyperactive));
+                        if (!(arg.Author as SocketGuildUser).Roles.Any(x => x.Id == (ulong)RoleLevel.Hyperactive)) (arg.Author as SocketGuildUser).AddRoleAsync((arg.Channel as SocketGuildChannel).Guild.GetRole((ulong)RoleLevel.Hyperactive));
                         break;
                 }
+                db.SaveChanges();
                 return Task.CompletedTask;                                  
             }
         }
