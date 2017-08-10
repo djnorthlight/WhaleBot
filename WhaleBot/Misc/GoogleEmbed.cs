@@ -54,6 +54,7 @@ namespace WhaleBot
                 if (counter <= this.ResultsPerPage) reply += $"[{result.Title}]({result.Link}) \n";
                 counter++;
             }
+            //osmium was here
             var embed = new EmbedBuilder
             {
                 Description = reply,
