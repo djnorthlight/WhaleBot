@@ -14,14 +14,13 @@ namespace WhaleBot
 {
     public class Program
     {
-        public static List<Poll> polls = new List<Poll>(); 
 
         private CommandService commands;
         private DiscordSocketClient client;
         private IServiceProvider provider;
         internal GoogleEmbeds embeds;
         bool IsDev = false;
-        //public static ulong id = 332158703266430978;
+
 
 
         static void Main(string[] args) => new Program().Start().GetAwaiter().GetResult();
@@ -47,8 +46,8 @@ namespace WhaleBot
 
 
 
-            
-            string token = IsDev ? File.ReadAllText(@"Tokens\whalebotdev.txt") : File.ReadAllText(@"Tokens\whalebot.txt"); 
+
+            string token = IsDev ? File.ReadAllText(@"Tokens\whalebotdev.txt") : File.ReadAllText(@"Tokens\whalebot.txt");
 
             await InstallCommands();
 
@@ -71,7 +70,7 @@ namespace WhaleBot
             await commands.AddModulesAsync(Assembly.GetEntryAssembly());
         }
 
-        
+
 
         private IServiceProvider ConfigureServices()
         {
@@ -95,9 +94,9 @@ namespace WhaleBot
                 .AddSingleton(new StatusUpdatesHandler(client))
                 .AddSingleton(new StarboardReactionAddingHandler(client))
                 .AddSingleton(new StarboardReactionRemovingHandler(client))
-                
-                
-                
+
+
+
 
                 .AddSingleton(new CommandService(new CommandServiceConfig { CaseSensitiveCommands = false, ThrowOnError = false }));
 
@@ -153,7 +152,3 @@ namespace WhaleBot
 
     }
 }
-
-
-
-
