@@ -22,6 +22,7 @@ namespace WhaleBot
 
         private Task Client_MessageReceived(SocketMessage arg)
         {
+            if ((arg.Channel as SocketGuildChannel).Guild.Id != 324282875035779072) return Task.CompletedTask;
             if (arg.Channel.GetType() == typeof(SocketDMChannel)) return Task.CompletedTask;
             using(var db = new DatabaseContext())
             {

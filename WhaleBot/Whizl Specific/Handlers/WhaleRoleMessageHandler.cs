@@ -14,7 +14,7 @@ namespace WhaleBot
 {
     public class WhaleRoleMessageHandler
     {
-        private readonly Timer _timer;
+        //private readonly Timer _timer;
         private readonly DiscordSocketClient _client;
         public static ulong LastMessageId;
 

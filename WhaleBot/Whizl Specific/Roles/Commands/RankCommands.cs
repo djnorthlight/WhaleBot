@@ -14,27 +14,28 @@ namespace WhaleBot
     public class RankCommands : ModuleBase<SocketCommandContext>
     {
         [Command("rank")][WhizlSpecific][RequireUserPermission]
-        public async Task RankCommand(IGuildUser user = null)
+        public async Task RankCommand(SocketUser user = null)
         {
             using (var db = new DatabaseContext())
             {
-                var info = db.MemberRoleInfos.FirstOrDefault(x => x.UserId == Context.User.Id).DaysActive;
+                user = user ?? Context.User;
+                var info = db.MemberRoleInfos.FirstOrDefault(x => x.UserId == user.Id).DaysActive;
                 int days = 0;
-                for (int i = 0; i < 5; i++)
-                {
-                    if (info < 3) days = info - 3;
-                    if (info < 5) days = info - 5;
-                    if (info < 7) days = info - 7;
-                    if (info < 14) days = info - 14;
-                }
+
+                if (info < 3) days = 3 - info;
+                else if (info < 5) days = 5 - info;
+                else if (info < 7) days = 7 - info;
+                else if (info < 14) days = 14 - info;
+
 
                 await ReplyAsync("", false, new EmbedBuilder
                 {
                     Author = new EmbedAuthorBuilder { Name = Context.User.Username, IconUrl = Context.User.GetAvatarUrl() },
-                    Title = "Rank info!",
-                    Fields = new List<EmbedFieldBuilder> {new EmbedFieldBuilder { IsInline = true, Name = "Active days", Value = db.MemberRoleInfos.FirstOrDefault(x => x.UserId == Context.User.Id)},
+                    Title = $"{user.Username}'s rank info!",
+                    Color = new Color(178, 224, 40),
+                    Fields = new List<EmbedFieldBuilder> {new EmbedFieldBuilder { IsInline = true, Name = "Active days", Value = db.MemberRoleInfos.FirstOrDefault(x => x.UserId == user.Id).DaysActive},
                     new EmbedFieldBuilder{IsInline = true, Name = "Days to next rank", Value = days.ToString() } }
-                });
+                }.WithUrl("http://heeeeeeeey.com/"));
                 
             }
         }

@@ -24,19 +24,20 @@ namespace WhaleBot
 
         private Task Client_MessageReceived(SocketMessage arg)
         {
-            if (arg.Channel.GetType() != typeof(SocketDMChannel)) return Task.CompletedTask;
-            
+            if (arg.Channel.GetType() == typeof(SocketDMChannel)) return Task.CompletedTask;
+            if ((arg.Channel as SocketGuildChannel).Guild.Id != 324282875035779072) return Task.CompletedTask;
 
             using (var db = new DatabaseContext())
             {
-                if (!db.MemberRoleInfos.Any(x => x.UserId == arg.Author.Id)) db.MemberRoleInfos.Add(new MemberRoleInfo { UserId = arg.Author.Id, DaysActive = 0, NextDay = DateTime.Now.AddDays(1) });
-                var info = db.MemberRoleInfos.FirstOrDefault(x => x.UserId == arg.Author.Id);
+                MemberRoleInfo info = null;
+                if (!db.MemberRoleInfos.Any(x => x.UserId == arg.Author.Id)) db.MemberRoleInfos.Add(info = new MemberRoleInfo { UserId = arg.Author.Id, DaysActive = 0, NextDay = DateTime.Now.AddDays(1) });
+                if(info == null)info = db.MemberRoleInfos.FirstOrDefault(x => x.UserId == arg.Author.Id);
                 if (info.NextDay.Day == DateTime.Now.Day)
                 {
                     info.NextDay.AddDays(1);
                     info.DaysActive++;
                 }
-                if (info.NextDay.Day > DateTime.Now.Day)
+                if (info.NextDay.Day < DateTime.Now.Day)
                 {
                     info.NextDay = DateTime.Now;
                     info.DaysActive = 0;
