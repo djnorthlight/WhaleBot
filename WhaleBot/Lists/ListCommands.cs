@@ -37,8 +37,8 @@ namespace WhaleBot
 
                 offusers = iguser.Where(x => x.Status == UserStatus.Offline);
 
-                ronoffusers = offusers.Where(x => x.Roles.ToDictionary(y => y.Position).Keys.Max() == role.Position);
-                ronusers = onusers.Where(x => x.Roles.ToDictionary(y => y.Position).Keys.Max() == role.Position);
+                ronoffusers = offusers.Where(x => x.Roles.Max(y => y.Position) == role.Position);
+                ronusers = onusers.Where(x => x.Roles.Max(y => y.Position) == role.Position);
                 if (role != Context.Guild.EveryoneRole && role.IsHoisted && !role.IsManaged)
                 {
                     onrolusers.Add(currentrole, ronusers.Count());
