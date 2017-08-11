@@ -108,6 +108,7 @@ namespace WhaleBot
                 SocketGuildChannel chan = null;
                 if (arg == null) chan = (client.GetGuild(delmess.GuildId)).GetChannel(delmess.ChannelId);
                 if (arg == null) user = chan.GetUser(delmess.AuthorId);
+                if (arg.Content == "?cleanup") return;
 
                 await (arg2 as SocketGuildChannel).Guild.GetTextChannel(setup.RemoveChannelId).SendMessageAsync("", false, new EmbedBuilder
                 {
