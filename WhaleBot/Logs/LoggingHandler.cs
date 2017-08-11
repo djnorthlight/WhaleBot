@@ -96,6 +96,7 @@ namespace WhaleBot
             bool noAttachments = true;
             if (arg?.Attachments?.Count != null) if (arg.Attachments.Count != 0) noAttachments = false;
             if (arg == null && noAttachments && string.IsNullOrEmpty(delmess.Content)) return;
+            if (arg.Channel.Id == 341230361251938315) return;
 
             if (DateTime.Now.AddMilliseconds(-500) > lastMessage && delmess.ChannelId != 324321707777196034)
             {
