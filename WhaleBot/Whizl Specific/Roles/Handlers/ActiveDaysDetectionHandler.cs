@@ -46,7 +46,7 @@ namespace WhaleBot
                 switch (info.DaysActive)
                 {
                     case 3:
-                        if (!(arg.Author as SocketGuildUser).Roles.Any(x => x.Id == (ulong)RoleLevel.Recognised)) (arg.Author as SocketGuildUser).AddRoleAsync((arg.Channel as SocketGuildChannel).Guild.GetRole((ulong)RoleLevel.Recognised, new RequestOptions { AuditLogReason = "Was active for 3 days"}));
+                        if (!(arg.Author as SocketGuildUser).Roles.Any(x => x.Id == (ulong)RoleLevel.Recognised)) (arg.Author as SocketGuildUser).AddRoleAsync((arg.Channel as SocketGuildChannel).Guild.GetRole((ulong)RoleLevel.Recognised), new RequestOptions { AuditLogReason = "Was active for 3 days" });
                         break;
                     case 5:
                         if (!(arg.Author as SocketGuildUser).Roles.Any(x => x.Id == (ulong)RoleLevel.Frequent)) (arg.Author as SocketGuildUser).AddRoleAsync((arg.Channel as SocketGuildChannel).Guild.GetRole((ulong)RoleLevel.Frequent), new RequestOptions { AuditLogReason = "Was active for 5 days"});
