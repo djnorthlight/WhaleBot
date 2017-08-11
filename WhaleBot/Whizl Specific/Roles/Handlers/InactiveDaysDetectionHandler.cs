@@ -27,7 +27,7 @@ namespace WhaleBot
             if (arg.Channel.GetType() == typeof(SocketDMChannel)) return Task.CompletedTask;
             using(var db = new DatabaseContext())
             {
-                if (db.LoggedMessages.Where(x => x.AuthorId == arg.Author.Id && x.Timestamp < DateTime.Now.AddDays(-7) && x.MessageId != arg.Id).Count() == 0)
+                if (db.LoggedMessages.Where(x => x.AuthorId == arg.Author.Id && x.Timestamp > DateTime.Now.AddDays(-7) && x.MessageId != arg.Id).Count() == 0)
                 {
                     if ((arg.Author as SocketGuildUser).Roles.Any(x => x.Id == (ulong)RoleLevel.Hyperactive)) (arg.Author as SocketGuildUser).RemoveRoleAsync((arg.Channel as SocketGuildChannel).Guild.GetRole((ulong)RoleLevel.Hyperactive), new RequestOptions { AuditLogReason = "Was inactive for 7 days" });
                     if ((arg.Author as SocketGuildUser).Roles.Any(x => x.Id == (ulong)RoleLevel.Active)) (arg.Author as SocketGuildUser).RemoveRoleAsync((arg.Channel as SocketGuildChannel).Guild.GetRole((ulong)RoleLevel.Active), new RequestOptions { AuditLogReason = "Was inactive for 7 days" });
