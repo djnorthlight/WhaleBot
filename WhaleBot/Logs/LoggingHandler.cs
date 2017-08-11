@@ -58,7 +58,7 @@ namespace WhaleBot
                 message.IsEdited = true;
                 message.Edits.Add(arg2.Content, arg2.EditedTimestamp.Value.DateTime);
                 db.SaveChanges();
-                if (db.GuildStarringSetups.FirstOrDefault(x => x.GuildId == (arg3 as SocketGuildChannel).Guild.Id).StarboardChannelId == arg3.Id) return;
+                if (db.GuildStarringSetups.FirstOrDefault(x => x.GuildId == (arg3 as SocketGuildChannel).Guild.Id)?.StarboardChannelId == arg3.Id) return;
             }
 
             if (setup?.EditChannelId == 0) return;
