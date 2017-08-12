@@ -19,7 +19,7 @@ namespace WhaleBot
         private DiscordSocketClient client;
         private IServiceProvider provider;
         internal GoogleEmbeds embeds;
-        bool IsDev = false;
+        bool IsDev = true;
 
 
 
@@ -93,6 +93,7 @@ namespace WhaleBot
                 .AddSingleton(new StarboardReactionRemovingHandler(client))
                 .AddSingleton(new ActiveDaysDetectionHandler(client))
                 .AddSingleton(new InactiveDaysDetectionHandler(client))
+                .AddSingleton(new TosMessageHandler(client))
                 .AddSingleton(new CommandService(new CommandServiceConfig { CaseSensitiveCommands = false, ThrowOnError = false }));
             var provider = services.BuildServiceProvider();
 
