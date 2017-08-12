@@ -19,7 +19,7 @@ namespace WhaleBot
         private DiscordSocketClient client;
         private IServiceProvider provider;
         internal GoogleEmbeds embeds;
-        bool IsDev = true;
+        bool IsDev = false;
 
 
 
