@@ -62,6 +62,7 @@ namespace WhaleBot
                         Timestamp = mess2.Timestamp
                     };
                     if (mess2?.Attachments.Count != 0) embed.ImageUrl = mess2.Attachments.First().Url;
+                    if (mess2?.Embeds.Count != 0 && mess2?.Embeds?.First()?.Url != null) embed.ImageUrl = mess2.Embeds.First().Url;
 
                     var starmess = await chan.SendMessageAsync($"<#{arg2.Id}> ⭐{mess.Stars}", false, embed);
                     mess.StarboardMessageId = starmess.Id;
