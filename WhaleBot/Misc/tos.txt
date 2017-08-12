@@ -1,0 +1,13 @@
+﻿```By using this bot you acknowledge and express consent to the storage and use, by Cygan(the bot owner), of your and your members...
+▶Name and Discriminator.
+▶User ID.
+▶Messages.
+▶Deleted Messages.
+▶Edited Messages.
+▶Roles.
+▶Message IDs.
+▶Nicknames.
+▶Infractions.
+▶Times of Messages/Deleted Messages/Edited Messages/Infractions/Other Content.
+▶Usage of Bots.
+This is subject to change at any point in time, with or without notice.```
