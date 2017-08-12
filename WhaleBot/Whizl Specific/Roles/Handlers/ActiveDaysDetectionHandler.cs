@@ -31,7 +31,7 @@ namespace WhaleBot
             using (var db = new DatabaseContext())
             {
                 MemberRoleInfo info = null;
-                if (!db.MemberRoleInfos.Any(x => x.UserId == arg.Author.Id)) db.MemberRoleInfos.Add(new MemberRoleInfo { UserId = arg.Author.Id, DaysActive = 0, NextDay = DateTime.Now.AddDays(1) });
+                if (!db.MemberRoleInfos.Any(x => x.UserId == arg.Author.Id)) { db.MemberRoleInfos.Add(new MemberRoleInfo { UserId = arg.Author.Id, DaysActive = 0, NextDay = DateTime.Now.AddDays(1) }); db.SaveChanges(); }
                 info = db.MemberRoleInfos.FirstOrDefault(x => x.UserId == arg.Author.Id);
                 if (info.NextDay.Day == DateTime.Now.Day)
                 {
