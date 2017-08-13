@@ -24,6 +24,7 @@ namespace WhaleBot
             {
                 Author = new EmbedAuthorBuilder { Name = Context.User.Username, IconUrl = Context.User.GetAvatarUrl() },
                 Title = "Deleted messages!",
+                Color = new Color(178, 224, 40),
                 Description = $"Deleted {number} messages"
             });
 
@@ -44,6 +45,7 @@ namespace WhaleBot
             {
                 Author = new EmbedAuthorBuilder { Name = Context.User.Username, IconUrl = Context.User.GetAvatarUrl() },
                 Title = "Deleted messages!",
+                Color = new Color(178, 224, 40),
                 Description = $"Deleted {number} messages from {user.Mention}"
             });
 
