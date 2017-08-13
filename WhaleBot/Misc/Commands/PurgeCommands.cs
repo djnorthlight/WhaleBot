@@ -30,7 +30,7 @@ namespace WhaleBot
 
             var t = Task.Run(async () =>
             {
-                await Task.Delay(4000);
+                await Task.Delay(10000);
                 await reply.DeleteAsync();
             });
         }
@@ -39,8 +39,9 @@ namespace WhaleBot
         [RequireUserPermission]
         public async Task PurgeCommand(SocketGuildUser user, int number)
         {
-            var mess = await Context.Channel.GetMessagesAsync(number + 1).Flatten();
-            await Context.Channel.DeleteMessagesAsync(mess.Where(x => x.Author == user));
+            await Context.Message.DeleteAsync();
+            var mess = await Context.Channel.GetMessagesAsync(100).Flatten();
+            await Context.Channel.DeleteMessagesAsync(mess.Where(x => x.Author == user).OrderByDescending(x => x.Timestamp).Take(number));
             var reply = await ReplyAsync("", false, new EmbedBuilder
             {
                 Author = new EmbedAuthorBuilder { Name = Context.User.Username, IconUrl = Context.User.GetAvatarUrl() },
@@ -51,7 +52,7 @@ namespace WhaleBot
 
             var t = Task.Run(async () =>
             {
-                await Task.Delay(4000);
+                await Task.Delay(10000);
                 await reply.DeleteAsync();
             });
         }
