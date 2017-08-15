@@ -45,19 +45,22 @@ namespace WhaleBot
                     info.DaysActive = 0;
                 }
 
+                var gAuthor = arg.Author as SocketGuildUser;
+                var gChannel = arg.Channel as SocketGuildChannel;
+
                 switch (info.DaysActive)
                 {
                     case 3:
-                        if (!(arg.Author as SocketGuildUser).Roles.Any(x => x.Id == (ulong)RoleLevel.Recognised)) (arg.Author as SocketGuildUser).AddRoleAsync((arg.Channel as SocketGuildChannel).Guild.GetRole((ulong)RoleLevel.Recognised), new RequestOptions { AuditLogReason = "Was active for 3 days" });
+                        if (!gAuthor.Roles.Any(x => x.Id == (ulong)RoleLevel.Recognised)) gAuthor.AddRoleAsync(gChannel.Guild.GetRole((ulong)RoleLevel.Recognised), new RequestOptions { AuditLogReason = "Was active for 3 days" });
                         break;
                     case 5:
-                        if (!(arg.Author as SocketGuildUser).Roles.Any(x => x.Id == (ulong)RoleLevel.Frequent)) (arg.Author as SocketGuildUser).AddRoleAsync((arg.Channel as SocketGuildChannel).Guild.GetRole((ulong)RoleLevel.Frequent), new RequestOptions { AuditLogReason = "Was active for 5 days"});
+                        if (!gAuthor.Roles.Any(x => x.Id == (ulong)RoleLevel.Frequent)) gAuthor.AddRoleAsync(gChannel.Guild.GetRole((ulong)RoleLevel.Frequent), new RequestOptions { AuditLogReason = "Was active for 5 days"});
                         break;
                     case 7:
-                        if (!(arg.Author as SocketGuildUser).Roles.Any(x => x.Id == (ulong)RoleLevel.Active)) (arg.Author as SocketGuildUser).AddRoleAsync((arg.Channel as SocketGuildChannel).Guild.GetRole((ulong)RoleLevel.Active), new RequestOptions { AuditLogReason = "Was active for 7 days" });
+                        if (!gAuthor.Roles.Any(x => x.Id == (ulong)RoleLevel.Active)) gAuthor.AddRoleAsync(gChannel.Guild.GetRole((ulong)RoleLevel.Active), new RequestOptions { AuditLogReason = "Was active for 7 days" });
                         break;
                     case 14:
-                        if (!(arg.Author as SocketGuildUser).Roles.Any(x => x.Id == (ulong)RoleLevel.Hyperactive)) (arg.Author as SocketGuildUser).AddRoleAsync((arg.Channel as SocketGuildChannel).Guild.GetRole((ulong)RoleLevel.Hyperactive), new RequestOptions { AuditLogReason = "Was active for 14 days" });
+                        if (!gAuthor.Roles.Any(x => x.Id == (ulong)RoleLevel.Hyperactive)) gAuthor.AddRoleAsync(gChannel.Guild.GetRole((ulong)RoleLevel.Hyperactive), new RequestOptions { AuditLogReason = "Was active for 14 days" });
                         break;
                 }
                 db.SaveChanges();
