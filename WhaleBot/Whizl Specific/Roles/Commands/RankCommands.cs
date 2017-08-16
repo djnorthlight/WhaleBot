@@ -45,7 +45,7 @@ namespace WhaleBot
                     Color = new Color(178, 224, 40),
                     ThumbnailUrl = user.GetAvatarUrl(),
                     Fields = new List<EmbedFieldBuilder> {new EmbedFieldBuilder { IsInline = true, Name = "Active days", Value = db.MemberRoleInfos.FirstOrDefault(x => x.UserId == user.Id).DaysActive},
-                    new EmbedFieldBuilder{IsInline = true, Name = "Days to next rank", Value = days.ToString() },
+                    new EmbedFieldBuilder{ IsInline = true, Name = "Days to next rank", Value = days.ToString() },
                     new EmbedFieldBuilder{ IsInline = true, Name = "Next rank", Value = nextrank} }
                 }.WithUrl("http://heeeeeeeey.com/"));
                 

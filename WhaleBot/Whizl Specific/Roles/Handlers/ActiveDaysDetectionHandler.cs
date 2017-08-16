@@ -52,6 +52,7 @@ namespace WhaleBot
                 {
                     case 3:
                         if (!gAuthor.Roles.Any(x => x.Id == (ulong)RoleLevel.Recognised)) gAuthor.AddRoleAsync(gChannel.Guild.GetRole((ulong)RoleLevel.Recognised), new RequestOptions { AuditLogReason = "Was active for 3 days" });
+                        if (!gAuthor.Roles.Any(x => x.Id == 347140287275073546)) gAuthor.AddRoleAsync(gChannel.Guild.GetRole(347140287275073546));
                         break;
                     case 5:
                         if (!gAuthor.Roles.Any(x => x.Id == (ulong)RoleLevel.Frequent)) gAuthor.AddRoleAsync(gChannel.Guild.GetRole((ulong)RoleLevel.Frequent), new RequestOptions { AuditLogReason = "Was active for 5 days"});

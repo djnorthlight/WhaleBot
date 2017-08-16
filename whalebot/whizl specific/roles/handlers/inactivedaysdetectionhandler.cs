@@ -30,15 +30,25 @@ namespace WhaleBot
             var gChannel = arg.Channel as SocketGuildChannel;
             using (var db = new DatabaseContext())
             {
-                int[] days = { -7, -14, -21, -28 };
-
-                if (db.LoggedMessages.Where(x => x.AuthorId == arg.Author.Id && x.Timestamp > DateTime.Now.AddDays(-7) && x.MessageId != arg.Id).Count() == 0)
+                List<SocketRole> roles = new List<SocketRole>();
+                foreach (var role in gAuthor.Roles.OrderByDescending(x => x.Position))
                 {
-                    if (gAuthor.Roles.Any(x => x.Id == (ulong)RoleLevel.Hyperactive)) (arg.Author as SocketGuildUser).RemoveRoleAsync(gChannel.Guild.GetRole((ulong)RoleLevel.Hyperactive), new RequestOptions { AuditLogReason = "Was inactive for 7 days" });
-                    if (gAuthor.Roles.Any(x => x.Id == (ulong)RoleLevel.Active)) (arg.Author as SocketGuildUser).RemoveRoleAsync(gChannel.Guild.GetRole((ulong)RoleLevel.Active), new RequestOptions { AuditLogReason = "Was inactive for 7 days" });
-                    if (gAuthor.Roles.Any(x => x.Id == (ulong)RoleLevel.Frequent)) (arg.Author as SocketGuildUser).RemoveRoleAsync(gChannel.Guild.GetRole((ulong)RoleLevel.Frequent), new RequestOptions { AuditLogReason = "Was inactive for 7 days" });
-                    if (gAuthor.Roles.Any(x => x.Id == (ulong)RoleLevel.Recognised)) (arg.Author as SocketGuildUser).RemoveRoleAsync(gChannel.Guild.GetRole((ulong)RoleLevel.Recognised), new RequestOptions { AuditLogReason = "Was inactive for 7 days" });
-                } 
+                    var values = Enum.GetValues(typeof(RoleLevel)).Cast<ulong>().AsEnumerable();
+                    if (values.Any(x => x == role.Id)) roles.Add(role);
+                }
+
+                //checking logged messages for user activity
+                int counter = 1;
+                foreach (var role in roles)
+                {
+                    if (db.LoggedMessages.Where(x => x.AuthorId == arg.Author.Id && x.Timestamp > DateTime.Now.AddDays(-(counter * 7)) && x.MessageId != arg.Id).Count() == 0)
+                        if (gAuthor.Roles.Any(x => x.Id == role.Id))
+                        {
+                            if (role.Id == (ulong)RoleLevel.Recognised) gAuthor.RemoveRoleAsync(gChannel.Guild.GetRole((ulong)RoleLevel.Recognised));
+                            gAuthor.RemoveRoleAsync(gChannel.Guild.GetRole(role.Id), new RequestOptions { AuditLogReason = "Was inactive for 7 days" });
+                        }                                               
+                    counter++;
+                }                      
             }
             return Task.CompletedTask;
         }
