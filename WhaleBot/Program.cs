@@ -77,8 +77,6 @@ namespace WhaleBot
             var services = new ServiceCollection()
                 .AddSingleton(client)
                 .AddSingleton(new ReactionHandler(client))
-                .AddSingleton(new WelcomeMessage(client))
-                .AddSingleton(new WhaleHandler(client))
                 .AddSingleton(new Logger(client, commands))
                 .AddSingleton(embeds)
                 .AddSingleton(new WhaleRoleMessageHandler(client))
