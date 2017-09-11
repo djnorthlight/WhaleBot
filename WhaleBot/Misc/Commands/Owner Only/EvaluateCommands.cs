@@ -64,7 +64,8 @@ namespace WhaleBot
                         "System.Collections",
                         "System.Collections.Generic",
                         "System.Threading.Tasks",
-                        "System.IO"
+                        "System.IO",
+                        "System.Text"
                     });
 
                 object result = await CSharpScript.EvaluateAsync(code, options, globals:
