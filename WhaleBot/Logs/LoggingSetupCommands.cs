@@ -13,36 +13,12 @@ namespace WhaleBot
 {
     public class LoggingSetupCommands : ModuleBase<SocketCommandContext>
     {
-        [Command("log edit")]
-        [Summary("Sets the edited messages log channel")]
+        [Command("log")]
+        [Summary("Sets the edits/deletes/joins/leaves log channel")]
         [RequireUserPermission]
-        public async Task LogEditCommand(SocketTextChannel chan = null)
+        public async Task LogEditCommand(string node, SocketTextChannel chan = null)
         {
-            using(var db = new DatabaseContext())
-            {
-                bool WasNull = false;
-                var setup = db.GuildLoggingSetups.FirstOrDefault(x => x.GuildId == Context.Guild.Id);
-                if (setup == null)
-                {
-                    setup = new GuildLoggingSetup();
-                    WasNull = true;
-                }
-
-                setup.GuildId = Context.Guild.Id;
-                if (chan != null) setup.EditChannelId = chan.Id;
-                else setup.EditChannelId = 0;
-
-                if(WasNull) db.GuildLoggingSetups.Add(setup);
-                db.SaveChanges();
-            }
-            await ReplyAsync(chan == null ? "Edit logging channel has been cleared!" : "Edit logging channel has been set to " + chan.Mention);
-        }
-
-        [Command("log delete")]
-        [Summary("Sets deleted messages log channel")]
-        [RequireUserPermission]
-        public async Task LogDeleteCommand(SocketTextChannel chan = null)
-        {
+            bool WasFailed = false;
             using (var db = new DatabaseContext())
             {
                 bool WasNull = false;
@@ -54,13 +30,39 @@ namespace WhaleBot
                 }
 
                 setup.GuildId = Context.Guild.Id;
-                if (chan != null) setup.RemoveChannelId = chan.Id;
-                else setup.RemoveChannelId = 0;
 
-                if (WasNull) db.GuildLoggingSetups.Add(setup);
+                switch (node.ToLower())
+                {
+                    case "edit":
+                        if (chan != null) setup.EditChannelId = chan.Id;
+                        else setup.EditChannelId = 0;
+                        break;
+                    case "delete":
+                        if (chan != null) setup.RemoveChannelId = chan.Id;
+                        else setup.RemoveChannelId = 0;
+                        break;
+                    case "join":
+                        if (chan != null) setup.JoinChannelId = chan.Id;
+                        else setup.RemoveChannelId = 0;
+                        break;
+                    case "leave":
+                        if (chan != null) setup.LeaveChannelId = chan.Id;
+                        else setup.RemoveChannelId = 0;
+                        break;
+                    default:
+                        await ReplyAsync("You fucked up");
+                        WasFailed = true;
+                        break;
+                }
+
+
+                if(WasNull) db.GuildLoggingSetups.Add(setup);
                 db.SaveChanges();
             }
-            await ReplyAsync(chan == null ? "Delete logging channel has been cleared!" : "Delete logging channel has been set to " + chan.Mention);
+            var firstLetter = node.ToCharArray().First().ToString().ToUpper();
+            var nodee = firstLetter + node.Substring(1);
+
+            if(!WasFailed)await ReplyAsync(chan == null ? $"{nodee} logging channel has been cleared!" : $"{nodee} logging channel has been set to {chan.Mention}");
         }
     }
 }

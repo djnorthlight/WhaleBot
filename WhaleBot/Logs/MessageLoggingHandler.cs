@@ -11,11 +11,11 @@ using System.Diagnostics;
 
 namespace WhaleBot
 {
-    public class LoggingHandler
+    public class MessageLoggingHandler
     {
         private DiscordSocketClient client;
         private DateTime lastMessage = DateTime.Now;
-        public LoggingHandler(DiscordSocketClient client)
+        public MessageLoggingHandler(DiscordSocketClient client)
         {
             this.client = client;
             client.MessageDeleted += Client_MessageDeleted;

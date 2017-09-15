@@ -10,5 +10,7 @@ namespace WhaleBot
         public ulong GuildId { get; set; }
         public ulong EditChannelId { get; set; }
         public ulong RemoveChannelId { get; set; }
+        public ulong JoinChannelId { get; set; }
+        public ulong LeaveChannelId { get; set; }
     }
 }
