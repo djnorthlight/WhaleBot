@@ -90,6 +90,7 @@ namespace WhaleBot
                 .AddSingleton(new StarboardReactionAddingHandler(client))
                 .AddSingleton(new StarboardReactionRemovingHandler(client))
                 .AddSingleton(new TosMessageHandler(client))
+                .AddSingleton(new JoinAndLeaveLoggingHandler(client))
                 .AddSingleton(new CommandService(new CommandServiceConfig { CaseSensitiveCommands = false, ThrowOnError = false }));
             var provider = services.BuildServiceProvider();
 
