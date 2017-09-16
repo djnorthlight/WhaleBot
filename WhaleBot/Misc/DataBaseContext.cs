@@ -11,7 +11,7 @@ namespace WhaleBot
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<RoleAssignment> RoleAssignments { get; set; }
         public DbSet<LoggedMessage> LoggedMessages { get; set; }
-        public DbSet<GuildLoggingSetup> GuildLoggingSetups { get; set; }
+        public DbSet<GuildSetup> GuildSetups { get; set; }
         public DbSet<GuildStarringSetup> GuildStarringSetups { get; set; }
         public DbSet<StarredMessage> StarredMessages { get; set; }
         public DbSet<WhaleHunterCount> WhaleHunterCounts { get; set; }

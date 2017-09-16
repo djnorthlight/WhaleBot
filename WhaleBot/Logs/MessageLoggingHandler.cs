@@ -50,10 +50,10 @@ namespace WhaleBot
             if (arg2.EditedTimestamp == null) return;
             if (arg3.GetType() == typeof(SocketDMChannel)) return;
             var oldmess = await arg1.GetOrDownloadAsync();
-            GuildLoggingSetup setup;
+            GuildSetup setup;
             using (var db = new DatabaseContext())
             {
-                setup = db.GuildLoggingSetups.FirstOrDefault(x => x.GuildId == (arg3 as SocketGuildChannel).Guild.Id);
+                setup = db.GuildSetups.FirstOrDefault(x => x.GuildId == (arg3 as SocketGuildChannel).Guild.Id);
                 var message = db.LoggedMessages.FirstOrDefault(x => x.MessageId == oldmess.Id);
                 message.IsEdited = true;
                 message.Edits.Add(arg2.Content, arg2.EditedTimestamp.Value.DateTime);
@@ -80,10 +80,10 @@ namespace WhaleBot
             var arg = await arg1.GetOrDownloadAsync();
             LoggedMessage delmess;
 
-            GuildLoggingSetup setup;
+            GuildSetup setup;
             using (var db = new DatabaseContext())
             {
-                setup = db.GuildLoggingSetups.FirstOrDefault(x => x.GuildId == (arg2 as SocketGuildChannel).Guild.Id);
+                setup = db.GuildSetups.FirstOrDefault(x => x.GuildId == (arg2 as SocketGuildChannel).Guild.Id);
                 var message = db.LoggedMessages.FirstOrDefault(x => x.MessageId == arg1.Id);
                 delmess = message;
                 if (message != null)

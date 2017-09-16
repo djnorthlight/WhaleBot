@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WhaleBot
 {
-    public class GuildLoggingSetup
+    public class GuildSetup
     {
         public int Id { get; set; }
         public ulong GuildId { get; set; }
@@ -12,5 +12,6 @@ namespace WhaleBot
         public ulong RemoveChannelId { get; set; }
         public ulong JoinChannelId { get; set; }
         public ulong LeaveChannelId { get; set; }
+        public ulong MutedRoleId { get; set; }
     }
 }

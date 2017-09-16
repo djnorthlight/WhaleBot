@@ -23,8 +23,8 @@ namespace WhaleBot
 
         private async Task Client_UserLeft(SocketGuildUser arg)
         {
-            GuildLoggingSetup setup;
-            using (var db = new DatabaseContext()) setup = db.GuildLoggingSetups.FirstOrDefault(x => x.GuildId == arg.Guild.Id);
+            GuildSetup setup;
+            using (var db = new DatabaseContext()) setup = db.GuildSetups.FirstOrDefault(x => x.GuildId == arg.Guild.Id);
 
 
             await arg.Guild.GetTextChannel(setup.LeaveChannelId).SendMessageAsync("", false, new EmbedBuilder
@@ -37,8 +37,8 @@ namespace WhaleBot
 
         private async Task Client_UserJoined(SocketGuildUser arg)
         {
-            GuildLoggingSetup setup;
-            using (var db = new DatabaseContext()) setup = db.GuildLoggingSetups.FirstOrDefault(x => x.GuildId == arg.Guild.Id);
+            GuildSetup setup;
+            using (var db = new DatabaseContext()) setup = db.GuildSetups.FirstOrDefault(x => x.GuildId == arg.Guild.Id);
 
 
             await arg.Guild.GetTextChannel(setup.JoinChannelId).SendMessageAsync("", false, new EmbedBuilder
