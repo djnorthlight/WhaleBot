@@ -35,7 +35,7 @@ namespace WhaleBot
                     new EmbedFieldBuilder { Name = "Joined at", Value = user.JoinedAt.Value.ToLocalTime(), IsInline = true },
                     new EmbedFieldBuilder { Name = "Created at", Value = user.CreatedAt.ToLocalTime(), IsInline = true },
                 }
-            };
+            }.WithUrl("http://heeeeeeeey.com/");
 
             await ReplyAsync("", false, embed);
         }
