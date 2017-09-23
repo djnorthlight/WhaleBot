@@ -13,7 +13,7 @@ namespace WhaleBot
 {
     public class GiveawayCommands : ModuleBase<SocketCommandContext>
     {
-        [Command("giveaway")][RequireUserPermission]
+        [Command("giveaway")][RequireUserPermission][Summary("Creates a giveaway\n**Syntax**: `giveaway Item`")]
         public async Task GiveawayCommand([Remainder]string content)
         {
             var mess = await ReplyAsync("", false, new EmbedBuilder { Description = "Please wait..." });
@@ -39,7 +39,7 @@ namespace WhaleBot
 
         }
 
-        [Command("giveaway close")][RequireUserPermission]
+        [Command("giveaway close")][RequireUserPermission][Summary("Closes a giveaway\n**Syntax**: `giveaway close Id`")]
         public async Task GiveawayCloseCommand(int id)
         {
             Giveaway giveaway;
