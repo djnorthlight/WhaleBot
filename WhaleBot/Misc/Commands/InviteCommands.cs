@@ -23,7 +23,7 @@ namespace WhaleBot
                 Title = "Bot invite",
                 Color = new Color(178, 224, 40),
                 Description = "Click [here](https://discordapp.com/oauth2/authorize?client_id=332106465412251648&scope=bot&permissions=0x7FF7FC7F) to invite me to your server\n" +
-                              "Click [here](https://discord.gg/zV5c4Hg) to join my server"
+                              "Click [here](https://discord.gg/UGuRC86) to join my server"
 
             }.WithUrl("http://heeeeeeeey.com/"));
         }
