@@ -102,7 +102,7 @@ namespace WhaleBot
             {
                 List<EmbedFieldBuilder> fields = new List<EmbedFieldBuilder>();
                 if ((arg?.Content?.Length ?? delmess.Content.Length) > 0) fields.Add(new EmbedFieldBuilder { Name = "Content:", Value = $"```{arg?.Content ?? delmess.Content}```" });
-                if(!noAttachments) if (arg.Attachments.Count == 1) fields.Add(new EmbedFieldBuilder { Name = "Attachments:", Value = $"```{arg.Attachments.First().Filename}```" });
+                if (!noAttachments) if (arg.Attachments.Count == 1) fields.Add(new EmbedFieldBuilder { Name = "Attachments:", Value = $"```{arg.Attachments.First().Filename}```" });
                 if (fields.Count == 0) return;
 
                 SocketUser user = null;

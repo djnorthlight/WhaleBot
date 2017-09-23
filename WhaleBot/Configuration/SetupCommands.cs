@@ -62,7 +62,7 @@ namespace WhaleBot
             var firstLetter = node.ToCharArray().First().ToString().ToUpper();
             var nodee = firstLetter + node.Substring(1, (node.IndexOf('_') - 1));
 
-            if (!WasFailed)await ReplyAsync(chan == null ? $"{nodee} logging channel has been cleared!" : $"{nodee} logging channel has been set to {chan.Mention}");
+            if (!WasFailed)await ReplyAsync(chan == null ? $"{nodee} channel has been cleared!" : $"{nodee} logging channel has been set to {chan.Mention}");
         }
 
         [Command("setup")]

@@ -86,6 +86,7 @@ namespace WhaleBot
                 .AddSingleton(new GoogleReactionHandler(client, embeds))
                 .AddSingleton(new StaffChannelHandler(client))
                 .AddSingleton(new MessageLoggingHandler(client))
+                .AddSingleton(new GiveawayHandlers(client))
                 .AddSingleton(new StatusUpdatesHandler(client))
                 .AddSingleton(new StarboardReactionAddingHandler(client))
                 .AddSingleton(new StarboardReactionRemovingHandler(client))

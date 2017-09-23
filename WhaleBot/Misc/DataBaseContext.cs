@@ -16,6 +16,7 @@ namespace WhaleBot
         public DbSet<StarredMessage> StarredMessages { get; set; }
         public DbSet<WhaleHunterCount> WhaleHunterCounts { get; set; }
         public DbSet<CachedRoles> CachedRoles { get; set; }
+        public DbSet<Giveaway> Giveaways { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
