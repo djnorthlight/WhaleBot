@@ -45,7 +45,7 @@ namespace WhaleBot
 
             var t = Task.Run(async () =>
             {
-                await Task.Delay(5000);
+                await Task.Delay(15000);
                 await reply.DeleteAsync();
                 await Context.Message.DeleteAsync();
             });
