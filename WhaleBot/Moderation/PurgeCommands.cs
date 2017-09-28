@@ -56,5 +56,13 @@ namespace WhaleBot
                 await reply.DeleteAsync();
             });
         }
+
+        [Command("purge")]
+        [Remarks("Exclude from help")]
+        [RequireUserPermission]
+        public async Task PurgeCommand(int number, [Remainder]SocketGuildUser user)
+        {
+            await PurgeCommand(user, number);
+        }
     }
 }

@@ -15,7 +15,7 @@ namespace WhaleBot
     public class MuteCommands : ModuleBase<SocketCommandContext>
     {
         [Command("mute")][RequireUserPermission][Summary("Mutes a user")]
-        public async Task MuteCommand(SocketGuildUser mutee)
+        public async Task MuteCommand([Remainder]SocketGuildUser mutee)
         {
             GuildSetup setup;
             using(var db = new DatabaseContext())
@@ -35,7 +35,7 @@ namespace WhaleBot
         [Command("unmute")]
         [RequireUserPermission]
         [Summary("Unmutes a user")]
-        public async Task UnmuteCommand(SocketGuildUser mutee)
+        public async Task UnmuteCommand([Remainder]SocketGuildUser mutee)
         {
             GuildSetup setup;
             CachedRoles roles;

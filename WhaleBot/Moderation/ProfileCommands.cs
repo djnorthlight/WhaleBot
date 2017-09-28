@@ -16,7 +16,7 @@ namespace WhaleBot
         [Command("profile")]
         [RequireUserPermission]
         [Summary("Shows information about a user")]
-        public async Task ProfileCommand(SocketGuildUser userGiven = null)
+        public async Task ProfileCommand([Remainder]SocketGuildUser userGiven = null)
         {
             var user = userGiven ?? Context.User as SocketGuildUser;
 
