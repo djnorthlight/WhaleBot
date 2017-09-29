@@ -11,7 +11,7 @@ using System.Reflection;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
 
-namespace DiscordSelfuBot
+namespace WhaleBot
 {
     public class EditCommands : ModuleBase<SocketCommandContext>
     {

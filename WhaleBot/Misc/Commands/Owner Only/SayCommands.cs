@@ -9,7 +9,7 @@ using Discord.Commands;
 using System.IO;
 using System.Diagnostics;
 
-namespace DiscordSelfuBot
+namespace WhaleBot
 {
     public class SayCommands : ModuleBase
     {
