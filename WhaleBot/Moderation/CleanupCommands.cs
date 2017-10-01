@@ -24,7 +24,7 @@ namespace WhaleBot
         [RequireUserPermission]
         public async Task CleanupCommand()
         {
-            List<string> prefixes = new List<string> { "-", "?", ".", "!", "--", ":", ";", "//", "/", "!!", "??", "bb", ">", "<", "&", "@", "$", "%", "*", "+", "=", "~", "`", "|"};
+            List<string> prefixes = new List<string> { "-", "?", ".", "!", "--", ":", ";", "//", "/", "!!", "??", "bb", ">", "<", "&", "@", "$", "%", "*", "+", "=", "~", "`", "|", "bb", "P!"};
             var delete = await Context.Channel.GetMessagesAsync(100).Flatten();
             
             var deletee = delete.Where(x => x.Author.IsBot).ToList();
