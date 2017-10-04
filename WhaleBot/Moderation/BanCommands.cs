@@ -15,6 +15,8 @@ namespace WhaleBot
     public class BanCommands : ModuleBase<SocketCommandContext>
     {
         [Command("ban")]
+        [RequireUserPermission]
+        [Summary("Bans a user\n**Syntax**: `ban User Reason`")]
         public async Task BanCommand(SocketGuildUser user, [Remainder]string reason)
         {
             if (Context.User == user)

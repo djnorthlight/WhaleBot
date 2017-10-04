@@ -15,6 +15,8 @@ namespace WhaleBot
     public class KickCommands : ModuleBase<SocketCommandContext>
     {
         [Command("kick")]
+        [RequireUserPermission]
+        [Summary("Kicks a user\n**Syntax**: `kick User Reason`")]
         public async Task KickCommand(SocketGuildUser user, [Remainder]string reason)
         {
             if (Context.User == user)
