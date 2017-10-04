@@ -28,7 +28,6 @@ namespace WhaleBot
 
             foreach(var Command in CommandService.Commands)
             {
-                if (!Command.Preconditions.Contains(new RequireOwnerAttribute()) && !Command.Preconditions.Contains(new WhizlSpecificAttribute()) && Command.Remarks != "Exclude from help") pages[currentPage].AddField(new EmbedFieldBuilder { Name = $"{string.Join(", ", Command.Aliases)}", Value = Command.Summary ?? "Cygan you cunt theres no summary here" });                
                 if (currentPage == -1 || pages[currentPage].Fields.Count() >= 25)
                 {
                     currentPage++;
@@ -39,6 +38,9 @@ namespace WhaleBot
                         Color = new Color(178, 224, 40),
                     }.WithUrl("http://heeeeeeeey.com/"));
                 }
+
+                if (!Command.Preconditions.Contains(new RequireOwnerAttribute()) && !Command.Preconditions.Contains(new WhizlSpecificAttribute()) && Command.Remarks != "Exclude from help")
+                    pages[currentPage].AddField(new EmbedFieldBuilder { Name = $"{string.Join(", ", Command.Aliases)}", Value = (Command.Summary ?? "No help available") });                 
             }
 
             foreach(var page in pages) await Context.User.SendMessageAsync("", false, page);
