@@ -38,7 +38,7 @@ namespace WhaleBot
                 Color = new Color(178, 224, 40),
             }.WithUrl("http://heeeeeeeey.com/"));
 
-            await Context.Guild.AddBanAsync(user, 0, $"Kicked by {Context.User.Username}: {reason}");
+            await Context.Guild.AddBanAsync(user, 0, $"Banned by {Context.User.Username}: {reason}");
         }
     }
 }
