@@ -31,14 +31,17 @@ namespace WhaleBot
                 return;
             }
 
-            await user.SendMessageAsync("", false, new EmbedBuilder
+            try
             {
-                Author = new EmbedAuthorBuilder { Name = Context.User.Username, IconUrl = Context.User.GetAvatarUrl() },
-                Title = $"You've been banned from {Context.Guild.Name}",
-                Description = $"With reason: {reason}",
-                //Fields = new List<EmbedFieldBuilder> { new EmbedFieldBuilder { Name = "Reason", Value = reason } },
-                Color = new Color(178, 224, 40),
-            }.WithUrl("http://heeeeeeeey.com/"));
+                await user.SendMessageAsync("", false, new EmbedBuilder
+                {
+                    Author = new EmbedAuthorBuilder { Name = Context.User.Username, IconUrl = Context.User.GetAvatarUrl() },
+                    Title = $"You've been banned from {Context.Guild.Name}",
+                    Description = $"With reason: {reason}",
+                    //Fields = new List<EmbedFieldBuilder> { new EmbedFieldBuilder { Name = "Reason", Value = reason } },
+                    Color = new Color(178, 224, 40),
+                }.WithUrl("http://heeeeeeeey.com/"));
+            } catch { await ReplyAsync("I can't DM the user the reason for his kick 😦"); }
 
             await Context.Guild.AddBanAsync(user, 0, $"Banned by {Context.User.Username}: {reason}");
         }
