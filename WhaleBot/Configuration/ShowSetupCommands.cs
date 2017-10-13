@@ -36,7 +36,7 @@ namespace WhaleBot
                     new EmbedFieldBuilder { Name = "delete_log", Value = setup.RemoveChannelId == 0 ? "Not set" : Context.Guild.GetTextChannel(setup.RemoveChannelId).Mention, IsInline = true  },
                     new EmbedFieldBuilder { Name = "join_log", Value = setup.JoinChannelId == 0 ? "Not set" : Context.Guild.GetTextChannel(setup.JoinChannelId).Mention, IsInline = true  },
                     new EmbedFieldBuilder { Name = "leave_log", Value = setup.LeaveChannelId == 0 ? "Not set" : Context.Guild.GetTextChannel(setup.LeaveChannelId).Mention, IsInline = true  },
-                    new EmbedFieldBuilder { Name = "mod_log", Value = setup.ModChannelId == 0 ? "Not set" : Context.Guild.GetRole(setup.ModChannelId).Mention, IsInline = true },
+                    new EmbedFieldBuilder { Name = "mod_log", Value = setup.ModChannelId == 0 ? "Not set" : Context.Guild.GetTextChannel(setup.ModChannelId).Mention, IsInline = true },
                     new EmbedFieldBuilder { Name = "muted_role", Value = setup.MutedRoleId == 0 ? "Not set" : Context.Guild.GetRole(setup.MutedRoleId).Mention, IsInline = true },
                 }
             };
