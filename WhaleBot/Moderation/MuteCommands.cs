@@ -15,7 +15,7 @@ namespace WhaleBot
     public class MuteCommands : ModuleBase<SocketCommandContext>
     {
         [Command("mute")][RequireUserPermission][Summary("Mutes a user")]
-        public async Task MuteCommand([Remainder]SocketGuildUser mutee)
+        public async Task MuteCommand(SocketGuildUser mutee, [Remainder]string reason)
         {
             GuildSetup setup;
             using(var db = new DatabaseContext())
@@ -26,9 +26,30 @@ namespace WhaleBot
             }
 
             await mutee.RemoveRolesAsync(mutee.Roles.Where(x => x.IsEveryone == false));
-            await mutee.AddRoleAsync(Context.Guild.GetRole(setup.MutedRoleId));
+            await mutee.AddRoleAsync(Context.Guild.GetRole(setup.MutedRoleId), new RequestOptions { AuditLogReason = $"Muted by {Context.User.Username}: {reason}" });
 
-            await ReplyAsync($"Muted {mutee.Mention} 👌");
+            using (var db = new DatabaseContext())
+            {
+                var modChannelId = db.GuildSetups.FirstOrDefault(x => x.GuildId == Context.Guild.Id)?.ModChannelId;
+                if (modChannelId != 0)
+                {
+                    await Context.Guild.GetTextChannel((ulong)modChannelId).SendMessageAsync("", false, new EmbedBuilder
+                    {
+                        Title = "User muted",
+                        Description = $"{mutee.ToString()} has been muted",
+                        ThumbnailUrl = mutee.GetAvatarUrl(),
+                        Fields = new List<EmbedFieldBuilder>
+                        {
+                            new EmbedFieldBuilder { Name = "Reason", Value = reason, IsInline = true },
+                            new EmbedFieldBuilder { Name = "Muted by", Value = Context.User.Mention, IsInline = true },
+                        },
+                        Color = new Color(178, 224, 40),
+                        Timestamp = DateTime.Now,
+                    }.WithUrl("http://heeeeeeeey.com/"));
+                }
+            }
+
+            await ReplyAsync($"Muted **{mutee.ToString()}** (`{reason}`) 👌");
         }
 
 
@@ -54,9 +75,9 @@ namespace WhaleBot
             }
 
             await mutee.AddRolesAsync(addroles);
-            await mutee.RemoveRoleAsync(Context.Guild.GetRole(setup.MutedRoleId));
+            await mutee.RemoveRoleAsync(Context.Guild.GetRole(setup.MutedRoleId), new RequestOptions { AuditLogReason = $"Unmuted by {Context.User.Username}"});
 
-            await ReplyAsync($"Unmuted {mutee.Mention} 👌");
+            await ReplyAsync($"Unmuted **{mutee.Mention}** 👌");
         }
     }
 }

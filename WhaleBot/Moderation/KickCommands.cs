@@ -35,15 +35,43 @@ namespace WhaleBot
             {
                 await user.SendMessageAsync("", false, new EmbedBuilder
                 {
-                    Author = new EmbedAuthorBuilder { Name = Context.User.Username, IconUrl = Context.User.GetAvatarUrl() },
-                    Title = $"You've been kicked from {Context.Guild.Name}",
-                    Description = $"With reason: {reason}",
-                    //Fields = new List<EmbedFieldBuilder> { new EmbedFieldBuilder { Name = "Reason", Value = reason } },
+                    Title = "Look's like you fucked up",
+                    Description = $"You've been kicked from {Context.Guild.Name}",
+                    Fields = new List<EmbedFieldBuilder>
+                    {
+                        new EmbedFieldBuilder { Name = "Reason", Value = reason, IsInline = true  },
+                        new EmbedFieldBuilder { Name = "Kicked by", Value = Context.User.ToString(), IsInline = true  }
+                    },
                     Color = new Color(178, 224, 40),
+                    Timestamp = DateTime.Now,
+                    ThumbnailUrl = new StringBuilder(Context.Guild.IconUrl).Replace("jpg", "webp").ToString()
                 }.WithUrl("http://heeeeeeeey.com/"));
-            } catch { await ReplyAsync("I can't DM the user the reason for his kick 😦"); }
+            } catch { }
+
+            using(var db = new DatabaseContext())
+            {
+                var modChannelId = db.GuildSetups.FirstOrDefault(x => x.GuildId == Context.Guild.Id)?.ModChannelId;
+                if (modChannelId != 0)
+                {
+                    await Context.Guild.GetTextChannel((ulong)modChannelId).SendMessageAsync("", false, new EmbedBuilder
+                    {
+                        Title = "User kicked",
+                        Description = $"{user.ToString()} has been kicked",
+                        ThumbnailUrl = user.GetAvatarUrl(),
+                        Fields = new List<EmbedFieldBuilder>
+                        {
+                            new EmbedFieldBuilder { Name = "Reason", Value = reason, IsInline = true },
+                            new EmbedFieldBuilder { Name = "Kicked by", Value = Context.User.Mention, IsInline = true },
+                        },
+                        Color = new Color(178, 224, 40),
+                        Timestamp = DateTime.Now,
+                    }.WithUrl("http://heeeeeeeey.com/"));
+                }
+            }
 
             await user.KickAsync($"Kicked by {Context.User.Username}: {reason}");
+
+            await ReplyAsync($"Kicked **{user.ToString()}** (`{reason}`) 👌");
         }
     }
 }
