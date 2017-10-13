@@ -50,7 +50,7 @@ namespace WhaleBot
                         else setup.RemoveChannelId = 0;
                         break;
                     case "mod_log":
-                        if (chan != null) setup.LeaveChannelId = chan.Id;
+                        if (chan != null) setup.ModChannelId = chan.Id;
                         else setup.RemoveChannelId = 0;
                         break;
                     default:
