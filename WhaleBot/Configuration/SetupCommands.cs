@@ -49,6 +49,10 @@ namespace WhaleBot
                         if (chan != null) setup.LeaveChannelId = chan.Id;
                         else setup.RemoveChannelId = 0;
                         break;
+                    case "mod_log":
+                        if (chan != null) setup.LeaveChannelId = chan.Id;
+                        else setup.RemoveChannelId = 0;
+                        break;
                     default:
                         await ReplyAsync("You fucked up");
                         WasFailed = true;
