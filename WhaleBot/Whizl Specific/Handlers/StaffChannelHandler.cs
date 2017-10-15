@@ -58,8 +58,11 @@ namespace WhaleBot
 
         private Task Client_MessageReceived(SocketMessage arg)
         {
-            if (arg.Channel.Id == 341230361251938315) File.WriteAllText(@"\\OLIWIER-PC\ssl log\staff.txt", (StaffMessages + 1).ToString());
-            StaffMessages++;
+            if (arg.Channel.Id == 341230361251938315)
+            {
+                File.WriteAllText(@"\\OLIWIER-PC\ssl log\staff.txt", (StaffMessages + 1).ToString());
+                StaffMessages++;
+            }
             return Task.CompletedTask;
         }
 

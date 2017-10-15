@@ -82,7 +82,7 @@ namespace WhaleBot
             using (var db = new DatabaseContext())
             {
                 db.Polls.Add(poll);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
 
             var embed = new EmbedBuilder

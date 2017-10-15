@@ -23,12 +23,12 @@ namespace WhaleBot
             client.MessageReceived += Client_MessageReceived;
         }
 
-        private Task Client_MessageReceived(SocketMessage arg)
+        private async Task Client_MessageReceived(SocketMessage arg)
         {
             using (var db = new DatabaseContext())
             {
-                if (arg == null) return Task.CompletedTask;
-                if (arg.Channel.GetType() == typeof(SocketDMChannel)) return Task.CompletedTask;
+                if (arg == null) return;
+                if (arg.Channel.GetType() == typeof(SocketDMChannel)) return;
 
                 db.LoggedMessages.Add(new LoggedMessage
                 {
@@ -39,9 +39,9 @@ namespace WhaleBot
                     Content = arg.Content,
                     Timestamp = arg.Timestamp.DateTime
                 });
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
-            return Task.CompletedTask;
+            return;
         }
 
         private async Task Client_MessageUpdated(Cacheable<IMessage, ulong> arg1, SocketMessage arg2, ISocketMessageChannel arg3)
@@ -57,7 +57,7 @@ namespace WhaleBot
                 var message = db.LoggedMessages.FirstOrDefault(x => x.MessageId == oldmess.Id);
                 message.IsEdited = true;
                 message.Edits.Add(arg2.Content, arg2.EditedTimestamp.Value.DateTime);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 if (db.GuildStarringSetups.FirstOrDefault(x => x.GuildId == (arg3 as SocketGuildChannel).Guild.Id)?.StarboardChannelId == arg3.Id) return;
             }
 
@@ -89,7 +89,7 @@ namespace WhaleBot
                 if (message != null)
                 {
                     message.IsDeleted = true;
-                    db.SaveChanges();
+                    await db.SaveChangesAsync();
                 }
             }
             if (setup?.RemoveChannelId == 0) return;

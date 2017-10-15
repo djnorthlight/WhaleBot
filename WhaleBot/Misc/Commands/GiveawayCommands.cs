@@ -22,7 +22,7 @@ namespace WhaleBot
             using(var db = new DatabaseContext())
             {
                 db.Giveaways.Add(new Giveaway { MessageId = mess.Id, GuildId = Context.Guild.Id });
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 Id = db.Giveaways.FirstOrDefault(x => x.MessageId == mess.Id).Id;
             }
 
@@ -47,7 +47,7 @@ namespace WhaleBot
             {
                 giveaway = db.Giveaways.FirstOrDefault(x => x.Id == id);
                 try { db.Giveaways.Remove(giveaway); } catch { }
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
 
             if (giveaway == null)

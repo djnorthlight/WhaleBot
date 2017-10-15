@@ -21,7 +21,7 @@ namespace WhaleBot
         {
             this.client = client;
 
-            _timer = new Timer(_ =>
+            _timer = new Timer(async _ =>
             {
                 using(var db = new DatabaseContext())
                 {
@@ -32,12 +32,12 @@ namespace WhaleBot
                             var guild = client.GetGuild(324282875035779072);
                             try
                             {
-                                guild.GetUser(c.UserId).RemoveRoleAsync(guild.GetRole(338109400411537408), new RequestOptions { AuditLogReason = "The whale has ended" });
+                                await guild.GetUser(c.UserId).RemoveRoleAsync(guild.GetRole(338109400411537408), new RequestOptions { AuditLogReason = "The whale has ended" });
                                 db.RoleAssignments.Remove(c);
                             } catch { }
                         }
                     }
-                    db.SaveChanges();
+                    await db.SaveChangesAsync();
                 }
             },
             null,

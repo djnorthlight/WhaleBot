@@ -22,7 +22,7 @@ namespace WhaleBot
             using (var db = new DatabaseContext())
             {
                 db.Permissions.Add(new Permission(user.Id, Context.Guild.Id, command, false));
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
 
             await ReplyAsync("", false, new EmbedBuilder
@@ -54,7 +54,7 @@ namespace WhaleBot
             using (var db = new DatabaseContext())
             {
                 try { db.Permissions.Remove(perm); } catch { await ReplyAsync($"{user.Mention} doesn't have that permission"); return; }
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
                 
             await ReplyAsync("", false, new EmbedBuilder

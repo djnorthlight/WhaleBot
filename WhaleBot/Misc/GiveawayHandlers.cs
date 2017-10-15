@@ -21,15 +21,15 @@ namespace WhaleBot
             client.ReactionRemoved += Client_ReactionRemoved;
         }
 
-        private Task Client_ReactionRemoved(Cacheable<IUserMessage, ulong> arg1, ISocketMessageChannel arg2, SocketReaction arg3)
+        private async Task Client_ReactionRemoved(Cacheable<IUserMessage, ulong> arg1, ISocketMessageChannel arg2, SocketReaction arg3)
         {
             using (var db = new DatabaseContext())
             {
-                if (!db.Giveaways.Any(x => x.MessageId == arg1.Id)) return Task.CompletedTask;
+                if (!db.Giveaways.Any(x => x.MessageId == arg1.Id)) return;
                 db.Giveaways.FirstOrDefault(x => x.MessageId == arg1.Id).UserIds.Remove(arg3.UserId);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
-            return Task.CompletedTask;
+            return;
         }
 
         private async Task Client_ReactionAdded(Cacheable<IUserMessage, ulong> arg1, ISocketMessageChannel arg2, SocketReaction arg3)
@@ -41,7 +41,7 @@ namespace WhaleBot
                 if (!db.Giveaways.Any(x => x.MessageId == arg1.Id)) return;
                 if (arg3.Emote.ToString() != "<:whalebot:361164367506571264>") { await message.RemoveReactionAsync(arg3.Emote, client.GetUser(arg3.UserId)); return; }
                 db.Giveaways.FirstOrDefault(x => x.MessageId == arg1.Id).UserIds.Add(arg3.UserId);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }           
         }
     }

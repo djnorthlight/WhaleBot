@@ -62,8 +62,8 @@ namespace WhaleBot
                 else
                 {
                     await arg3.Message.Value.RemoveReactionAsync(arg3.Emote, arg3.User.Value);
-                }                              
-                db.SaveChanges(true);
+                }
+                await db.SaveChangesAsync(true);
             }
 
 

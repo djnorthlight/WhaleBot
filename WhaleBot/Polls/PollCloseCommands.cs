@@ -91,7 +91,7 @@ namespace WhaleBot
             using(var db = new DatabaseContext())
             {
                 db.Polls.Remove(currentPoll);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
 
 

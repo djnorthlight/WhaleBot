@@ -74,7 +74,7 @@ namespace WhaleBot
                     var starmess = await (arg2 as SocketGuildChannel).Guild.GetTextChannel(setup.StarboardChannelId).GetMessageAsync(mess.StarboardMessageId);
                     await (starmess as SocketUserMessage).ModifyAsync(x => x.Content = $"{chan.Mention} ⭐{mess.Stars}");
                 }
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
         }
     }

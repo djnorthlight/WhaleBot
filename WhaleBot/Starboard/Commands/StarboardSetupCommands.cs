@@ -26,7 +26,7 @@ namespace WhaleBot
                     if (setup == null) db.GuildStarringSetups.Add(new GuildStarringSetup { GuildId = Context.Guild.Id, StarboardChannelId = channel.Id });
                     else setup.StarboardChannelId = channel.Id;
                     await ReplyAsync($"The starboard channel has been set to {channel.Mention}");
-                    db.SaveChanges();
+                    await db.SaveChangesAsync();
                     return;
                 }
                 else
@@ -34,7 +34,7 @@ namespace WhaleBot
                     if (setup != null) setup.StarboardChannelId = 0;
                     await ReplyAsync("The starboard channel has been cleared");
                 }
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
         }
         [Command("starboard number")]
@@ -50,7 +50,7 @@ namespace WhaleBot
                     if (setup == null) db.GuildStarringSetups.Add(new GuildStarringSetup { GuildId = Context.Guild.Id, StarsRequired = number });
                     else setup.StarsRequired = number;
                     await ReplyAsync($"The stars required number has been set to {number}");
-                    db.SaveChanges();
+                    await db.SaveChangesAsync();
                     return;
                 }
                 else
@@ -58,7 +58,7 @@ namespace WhaleBot
                     if (setup != null) setup.StarsRequired = 0;
                     await ReplyAsync("The stars required number has been cleared");
                 }
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
         }
     }

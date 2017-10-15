@@ -37,7 +37,7 @@ namespace WhaleBot
 
                     var pinmess = await starboard.GetMessageAsync(pin.StarboardMessageId);
                     await (pinmess as SocketUserMessage).ModifyAsync(x => x.Content = $"<#{pin.ChannelId}> ⭐{pin.Stars}");
-                    db.SaveChanges();
+                    await db.SaveChangesAsync();
                 }
             }
         }

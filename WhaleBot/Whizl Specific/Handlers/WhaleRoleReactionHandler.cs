@@ -41,7 +41,7 @@ namespace WhaleBot
                         db.WhaleHunterCounts.Add(whalehunter);
                     }
                     whalehunter.WhaleCount++;
-                    db.SaveChanges();
+                    await db.SaveChangesAsync();
                 }
                 await msg2.DeleteAsync();
             }
