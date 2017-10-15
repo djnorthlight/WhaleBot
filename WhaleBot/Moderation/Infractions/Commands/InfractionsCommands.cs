@@ -14,7 +14,7 @@ namespace WhaleBot
 {
     public class InfractionsCommands : ModuleBase<SocketCommandContext>
     {
-        [Command("infractions")][Alias("inf")][RequireUserPermission][Summary("Displays infractions of a given user")]
+        [Command("infractions")][Alias("inf", "search")][RequireUserPermission][Summary("Displays infractions of a given user")]
         public async Task InfractionsCommand([Remainder]SocketGuildUser userr = null)
         {
             var user = userr ?? Context.User;

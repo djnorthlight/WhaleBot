@@ -24,6 +24,9 @@ namespace WhaleBot
         public async Task BanCommand(SocketGuildUser user, [Remainder]string reason) => await BanCommand(user, null, reason);
 
         [Command("ban")][RequireUserPermission][Remarks("Exclude from help")]
+        public async Task BanCommand(TimeSpan? time, SocketGuildUser user, [Remainder]string reason) => await BanCommand(user, time, reason);
+
+        [Command("ban")][RequireUserPermission][Remarks("Exclude from help")]
         public async Task BanCommand(SocketGuildUser user, TimeSpan? time, [Remainder]string reason)
         {
             if (Context.User == user)
