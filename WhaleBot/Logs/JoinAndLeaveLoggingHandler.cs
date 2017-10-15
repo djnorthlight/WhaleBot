@@ -24,7 +24,11 @@ namespace WhaleBot
         private async Task Client_UserLeft(SocketGuildUser arg)
         {
             GuildSetup setup;
-            using (var db = new DatabaseContext()) setup = db.GuildSetups.FirstOrDefault(x => x.GuildId == arg.Guild.Id);
+            using (var db = new DatabaseContext())
+            {
+                setup = db.GuildSetups.FirstOrDefault(x => x.GuildId == arg.Guild.Id);
+                if(db.Infractions.Where(x => x.OffenderId == arg.Id && (x.Type == InfractionType.Ban || x.Type == InfractionType.Kick) && x.Timestamp.AddSeconds(5) > DateTime.Now).Count() != 0) return;
+            }
 
 
             await arg.Guild.GetTextChannel(setup.LeaveChannelId).SendMessageAsync("", false, new EmbedBuilder
@@ -40,7 +44,7 @@ namespace WhaleBot
         {
             GuildSetup setup;
             using (var db = new DatabaseContext()) setup = db.GuildSetups.FirstOrDefault(x => x.GuildId == arg.Guild.Id);
-
+            
 
             await arg.Guild.GetTextChannel(setup.JoinChannelId).SendMessageAsync("", false, new EmbedBuilder
             {

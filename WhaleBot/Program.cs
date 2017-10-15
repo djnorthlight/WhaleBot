@@ -44,7 +44,7 @@ namespace WhaleBot
             embeds = new GoogleEmbeds();
             provider = ConfigureServices();
 
-
+            commands.AddTypeReader<TimeSpan?>(new TimeSpanReader()); 
 
 
             string token = IsDev ? File.ReadAllText(@"Tokens\whalebotdev.txt") : File.ReadAllText(@"Tokens\whalebot.txt");
@@ -92,6 +92,8 @@ namespace WhaleBot
                 .AddSingleton(new StarboardReactionRemovingHandler(client))
                 .AddSingleton(new TosMessageHandler(client))
                 .AddSingleton(new JoinAndLeaveLoggingHandler(client))
+                .AddSingleton(new ExpiredInfractionsHandler(client))
+                .AddSingleton(new RejoinHandler(client))
                 .AddSingleton(new CommandService(new CommandServiceConfig { CaseSensitiveCommands = false, ThrowOnError = false }));
             var provider = services.BuildServiceProvider();
 

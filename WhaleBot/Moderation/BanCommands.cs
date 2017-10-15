@@ -14,10 +14,17 @@ namespace WhaleBot
 
     public class BanCommands : ModuleBase<SocketCommandContext>
     {
-        [Command("ban")]
-        [RequireUserPermission]
-        [Summary("Bans a user\n**Syntax**: `ban User Reason`")]
-        public async Task BanCommand(SocketGuildUser user, [Remainder]string reason)
+        private ExpiredInfractionsHandler handler;
+        public BanCommands(ExpiredInfractionsHandler handler)
+        {
+            this.handler = handler;
+        }
+
+        [Command("ban")][RequireUserPermission][Summary("Bans a user\n**Syntax**: `ban User Reason`")]
+        public async Task BanCommand(SocketGuildUser user, [Remainder]string reason) => await BanCommand(user, null, reason);
+
+        [Command("ban")][RequireUserPermission][Remarks("Exclude from help")]
+        public async Task BanCommand(SocketGuildUser user, TimeSpan? time, [Remainder]string reason)
         {
             if (Context.User == user)
             {
@@ -40,7 +47,8 @@ namespace WhaleBot
                     Fields = new List<EmbedFieldBuilder>
                     {
                         new EmbedFieldBuilder { Name = "Reason", Value = reason, IsInline = true  },
-                        new EmbedFieldBuilder { Name = "Banned by", Value = Context.User.ToString(), IsInline = true  }
+                        new EmbedFieldBuilder { Name = "Banned by", Value = Context.User.ToString(), IsInline = true  },
+                        new EmbedFieldBuilder { Name = "Duration", Value = time.ToReadable() }
                     },
                     Color = new Color(178, 224, 40),
                     Timestamp = DateTime.Now,
@@ -62,6 +70,7 @@ namespace WhaleBot
                         {
                             new EmbedFieldBuilder { Name = "Reason", Value = reason, IsInline = true },
                             new EmbedFieldBuilder { Name = "Banned by", Value = Context.User.Mention, IsInline = true },
+                            new EmbedFieldBuilder { Name = "Duration", Value = time.ToReadable() }
                         },
                         Color = new Color(178, 224, 40),
                         Timestamp = DateTime.Now,
@@ -71,7 +80,16 @@ namespace WhaleBot
 
             await Context.Guild.AddBanAsync(user, 0, $"Banned by {Context.User.Username}: {reason}");
 
-            await ReplyAsync($"Banned **{user.ToString()}** (`{reason}`) 👌");
+            var inf = new Infraction(Context.Guild.Id, Context.User.Id, user.Id, reason, InfractionType.Ban, time);
+            using (var db = new DatabaseContext())
+            {
+                db.Infractions.Add(inf);
+                await db.SaveChangesAsync();
+            }
+
+            if (time != null) handler.AddTempBan(inf);
+
+            await ReplyAsync($"Banned **{user.ToString()}** {(time.ToReadable() != "Infinite" ? $"{time.ToReadable()} " : "")}(`{reason}`) 👌");
         }
     }
 }
