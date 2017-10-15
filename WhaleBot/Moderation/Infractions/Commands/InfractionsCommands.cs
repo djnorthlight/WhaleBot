@@ -44,6 +44,7 @@ namespace WhaleBot
                             Author = new EmbedAuthorBuilder { Name = Context.User.Username, IconUrl = Context.User.GetAvatarUrl() },
                             Title = $"{user.Username}'s infractions " + (currentPage == 0 ? "" : (currentPage + 1).ToString()),
                             Color = new Color(178, 224, 40),
+                            ThumbnailUrl = user.GetAvatarUrl(),
                         }.WithUrl("http://heeeeeeeey.com/"));
                     }
 
