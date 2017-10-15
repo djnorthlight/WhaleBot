@@ -35,7 +35,7 @@ namespace WhaleBot
             {
                 await user.SendMessageAsync("", false, new EmbedBuilder
                 {
-                    Title = "Look's like you fucked up",
+                    Title = "Looks like you fucked up",
                     Description = $"You've been kicked from {Context.Guild.Name}",
                     Fields = new List<EmbedFieldBuilder>
                     {

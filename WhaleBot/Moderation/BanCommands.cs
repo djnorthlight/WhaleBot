@@ -42,7 +42,7 @@ namespace WhaleBot
             {
                 await user.SendMessageAsync("", false, new EmbedBuilder
                 {
-                    Title = "Look's like you fucked up real hard",
+                    Title = "Looks like you fucked up real hard",
                     Description = $"You've been banned from {Context.Guild.Name}",
                     Fields = new List<EmbedFieldBuilder>
                     {

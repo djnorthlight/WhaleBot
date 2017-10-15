@@ -64,7 +64,7 @@ namespace WhaleBot
             {
                 await mutee.SendMessageAsync("", false, new EmbedBuilder
                 {
-                    Title = "Look's like you did something wrong",
+                    Title = "Looks like you did something wrong",
                     Description = $"You've been muted on {Context.Guild.Name}",
                     Fields = new List<EmbedFieldBuilder>
                     {
