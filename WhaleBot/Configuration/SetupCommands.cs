@@ -43,15 +43,15 @@ namespace WhaleBot
                         break;
                     case "join_log":
                         if (chan != null) setup.JoinChannelId = chan.Id;
-                        else setup.RemoveChannelId = 0;
+                        else setup.JoinChannelId = 0;
                         break;
                     case "leave_log":
                         if (chan != null) setup.LeaveChannelId = chan.Id;
-                        else setup.RemoveChannelId = 0;
+                        else setup.LeaveChannelId = 0;
                         break;
                     case "mod_log":
                         if (chan != null) setup.ModChannelId = chan.Id;
-                        else setup.RemoveChannelId = 0;
+                        else setup.ModChannelId = 0;
                         break;
                     default:
                         await ReplyAsync("You fucked up");
@@ -61,7 +61,7 @@ namespace WhaleBot
 
 
                 if(WasNull) db.GuildSetups.Add(setup);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
             var firstLetter = node.ToCharArray().First().ToString().ToUpper();
             var nodee = firstLetter + node.Substring(1, (node.IndexOf('_') - 1));
@@ -101,7 +101,7 @@ namespace WhaleBot
 
 
                 if (WasNull) db.GuildSetups.Add(setup);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
             var firstLetter = node.ToCharArray().First().ToString().ToUpper();
             var nodee = firstLetter + node.Substring(1, (node.IndexOf('_') - 1 ));
