@@ -109,7 +109,7 @@ namespace WhaleBot
             }
 
             if(time != null) handler.AddTempMute(inf);
-            await ReplyAsync($"Muted **{mutee.ToString()}** {(time.ToReadable() != "Infinite" ? $"for {time.ToReadable()}" : " ")}(`{reason}`) 👌");
+            await ReplyAsync($"Muted **{mutee.ToString()}** {(time.ToReadable() != "Infinite" ? $"for {time.ToReadable()}" : "")}(`{reason}`) 👌");
         }
 
 
