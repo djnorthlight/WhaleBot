@@ -119,15 +119,7 @@ namespace WhaleBot
                 if (result.Error == CommandError.UnknownCommand) return;
                 await Logger.Log(new LogMessage(LogSeverity.Info, "Command", $"{context.User.Username} used {messageParam.Content} in {context.Guild.Name} which failed with {result.ErrorReason}"));
                 if (result.ErrorReason.Contains("billing")) return;
-                var embed = new EmbedBuilder
-                {
-                    Author = new EmbedAuthorBuilder { Name = context.User.Username, IconUrl = context.User.GetAvatarUrl() },
-                    Title = "Something fucked up, I'm not sure what but this might tell you",
-                    Color = new Color(255, 0, 0),
-                    Description = result.ErrorReason
-                };
-                embed.WithUrl("http://heeeeeeeey.com/");
-                await context.Channel.SendMessageAsync("", false, embed);
+                await context.Channel.SendMessageAsync($"```ini\n[ERROR] {result.ErrorReason}```");
             }
             else
             {
