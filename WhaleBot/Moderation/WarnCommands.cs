@@ -34,9 +34,6 @@ namespace WhaleBot.Moderation
                 }
             }
 
-            await user.RemoveRolesAsync(user.Roles.Where(x => x.IsEveryone == false));
-            await user.AddRoleAsync(Context.Guild.GetRole(setup.MutedRoleId), new RequestOptions { AuditLogReason = $"Muted by {Context.User.Username}: {reason}" });
-
             try
             {
                 await user.SendMessageAsync("", false, new EmbedBuilder
