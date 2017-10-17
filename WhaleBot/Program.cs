@@ -94,6 +94,7 @@ namespace WhaleBot
                 .AddSingleton(new JoinAndLeaveLoggingHandler(client))
                 .AddSingleton(new ExpiredInfractionsHandler(client))
                 .AddSingleton(new RejoinHandler(client))
+                .AddSingleton(new BlacklistedEmojiHandler(client))
                 .AddSingleton(new CommandService(new CommandServiceConfig { CaseSensitiveCommands = false, ThrowOnError = false }));
             var provider = services.BuildServiceProvider();
 
