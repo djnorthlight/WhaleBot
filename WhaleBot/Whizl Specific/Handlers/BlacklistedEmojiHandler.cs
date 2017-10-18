@@ -19,6 +19,16 @@ namespace WhaleBot
         {
             this.client = client;
             client.MessageReceived += Client_MessageReceived;
+            client.ReactionAdded += Client_ReactionAdded;
+        }
+
+        private async Task Client_ReactionAdded(Cacheable<IUserMessage, ulong> arg1, ISocketMessageChannel arg2, SocketReaction arg3)
+        {
+            var guild = (arg3.Channel as SocketGuildChannel).Guild;
+            if (guild.Id == 324282875035779072 && arg3.Emote.Name.Contains("GW") && guild.CurrentUser.Nickname == "WhalyBot")
+            {
+                await arg3.Message.Value.RemoveReactionAsync(arg3.Emote, arg3.User.Value);
+            }
         }
 
         private async Task Client_MessageReceived(SocketMessage arg)
