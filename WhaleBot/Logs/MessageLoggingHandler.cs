@@ -29,7 +29,8 @@ namespace WhaleBot
             {
                 if (arg == null) return;
                 if (arg.Channel.GetType() == typeof(SocketDMChannel)) return;
-
+                if (arg.Author.Id == 170903342199865344) return;
+                
                 db.LoggedMessages.Add(new LoggedMessage
                 {
                     GuildId = (arg.Channel as SocketGuildChannel).Guild.Id,
