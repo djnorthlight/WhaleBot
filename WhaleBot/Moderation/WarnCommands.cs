@@ -13,7 +13,7 @@ namespace WhaleBot.Moderation
 {
     public class WarnCommands : ModuleBase<SocketCommandContext>
     {
-        [Command("warn")][RequireUserPermission][Remarks("Warns a user")]
+        [Command("warn")][RequireUserPermission][Summary("Warns a user")]
         public async Task MuteCommand(SocketGuildUser user, [Remainder]string reason)
         {
             GuildSetup setup;
