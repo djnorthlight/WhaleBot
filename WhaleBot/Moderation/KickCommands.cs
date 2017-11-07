@@ -31,6 +31,10 @@ namespace WhaleBot
                 return;
             }
 
+            await user.KickAsync($"Kicked by {Context.User.Username}: {reason}");
+
+            await ReplyAsync($"Kicked **{user.ToString()}** (`{reason}`) 👌");
+
             try
             {
                 await user.SendMessageAsync("", false, new EmbedBuilder
@@ -69,15 +73,11 @@ namespace WhaleBot
                 }
             }
 
-            await user.KickAsync($"Kicked by {Context.User.Username}: {reason}");
-
             using (var db = new DatabaseContext())
             {
                 db.Infractions.Add(new Infraction(Context.Guild.Id, Context.User.Id, user.Id, reason, InfractionType.Kick));
                 await db.SaveChangesAsync();
             }
-
-            await ReplyAsync($"Kicked **{user.ToString()}** (`{reason}`) 👌");
         }
     }
 }

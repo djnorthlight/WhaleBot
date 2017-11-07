@@ -57,6 +57,8 @@ namespace WhaleBot
                 await db.SaveChangesAsync();
             }
 
+            await ReplyAsync($"Muted **{mutee.ToString()}** {(time.ToReadable() != "Infinite" ? $"for {time.ToReadable()}" : "")}(`{reason}`) 👌");
+
             await mutee.RemoveRolesAsync(mutee.Roles.Where(x => x.IsEveryone == false));
             await mutee.AddRoleAsync(Context.Guild.GetRole(setup.MutedRoleId), new RequestOptions { AuditLogReason = $"Muted by {Context.User.Username}: {reason}" });
 
@@ -109,7 +111,6 @@ namespace WhaleBot
             }
 
             if(time != null) handler.AddTempMute(inf);
-            await ReplyAsync($"Muted **{mutee.ToString()}** {(time.ToReadable() != "Infinite" ? $"for {time.ToReadable()}" : "")}(`{reason}`) 👌");
         }
 
 

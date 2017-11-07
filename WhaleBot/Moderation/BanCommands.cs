@@ -41,6 +41,10 @@ namespace WhaleBot
                 return;
             }
 
+            await Context.Guild.AddBanAsync(user, 0, $"Banned by {Context.User.Username}: {reason}");
+
+            await ReplyAsync($"Banned **{user.ToString()}** {(time.ToReadable() != "Infinite" ? $"{time.ToReadable()} " : "")}(`{reason}`) 👌");
+
             try
             {
                 await user.SendMessageAsync("", false, new EmbedBuilder
@@ -81,8 +85,6 @@ namespace WhaleBot
                 }
             }
 
-            await Context.Guild.AddBanAsync(user, 0, $"Banned by {Context.User.Username}: {reason}");
-
             var inf = new Infraction(Context.Guild.Id, Context.User.Id, user.Id, reason, InfractionType.Ban, time);
             using (var db = new DatabaseContext())
             {
@@ -91,8 +93,6 @@ namespace WhaleBot
             }
 
             if (time != null) handler.AddTempBan(inf);
-
-            await ReplyAsync($"Banned **{user.ToString()}** {(time.ToReadable() != "Infinite" ? $"{time.ToReadable()} " : "")}(`{reason}`) 👌");
         }
     }
 }
