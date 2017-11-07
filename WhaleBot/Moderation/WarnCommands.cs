@@ -34,6 +34,8 @@ namespace WhaleBot.Moderation
                 }
             }
 
+            await ReplyAsync($"Warned **{user.ToString()}** (`{reason}`) 👌");
+
             try
             {
                 await user.SendMessageAsync("", false, new EmbedBuilder
@@ -77,8 +79,6 @@ namespace WhaleBot.Moderation
                 db.Infractions.Add(inf);
                 await db.SaveChangesAsync();
             }
-
-            await ReplyAsync($"Warned **{user.ToString()}** (`{reason}`) 👌");
         }
     }
 }
