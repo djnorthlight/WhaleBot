@@ -16,6 +16,12 @@ namespace WhaleBot
         [Command("role")]
         [RequireUserPermission]
         [RequireBotPermission(GuildPermission.ManageRoles)]
+        [Remarks("Exclude from help")]
+        public async Task RoleCommand(SocketGuildUser user, [Remainder]SocketRole role) => await RoleCommand(user, role);
+
+        [Command("role")]
+        [RequireUserPermission]
+        [RequireBotPermission(GuildPermission.ManageRoles)]
         [Summary("Adds/removes roles\n**Syntax**: `role User Role(s)`")]
         public async Task RoleCommand(SocketGuildUser user, params SocketRole[] roles)
         {
