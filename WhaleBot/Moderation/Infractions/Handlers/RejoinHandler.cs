@@ -25,7 +25,7 @@ namespace WhaleBot
         {
             using(var db = new DatabaseContext())
             {
-                if (db.Infractions.Any(x => x.OffenderId == arg.Id && x.Type == InfractionType.Mute && !x.IsExpired))
+                if (db.Infractions.Any(x => x.OffenderId == arg.Id && x.Type == InfractionType.Mute && !x.IsExpired && x.GuildId == arg.Guild.Id))
                 {
                     await arg.AddRoleAsync(arg.Guild.GetRole(db.GuildSetups.FirstOrDefault(x => x.GuildId == arg.Guild.Id).MutedRoleId), new RequestOptions { AuditLogReason = "Rejoined whilst muted" });
                 }
