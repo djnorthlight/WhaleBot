@@ -39,7 +39,7 @@ namespace WhaleBot
                     new EmbedFieldBuilder { Name = "mod_log", Value = setup.ModChannelId == 0 ? "Not set" : Context.Guild.GetTextChannel(setup.ModChannelId)?.Mention, IsInline = true },
                     new EmbedFieldBuilder { Name = "muted_role", Value = setup.MutedRoleId == 0 ? "Not set" : Context.Guild.GetRole(setup.MutedRoleId)?.Mention, IsInline = true },
                 }
-            };
+            }.WithUrl("http://heeeeeeeey.com/");
 
             await ReplyAsync("", false, embed);
         }
