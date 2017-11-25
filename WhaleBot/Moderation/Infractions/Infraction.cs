@@ -16,6 +16,7 @@ namespace WhaleBot
         public ulong IssuerId { get; set; }
         public ulong OffenderId { get; set; }
         public bool IsExpired { get; set; }
+        public bool IsDeleted { get; set; }
         [NotMapped]
         public DateTime Timestamp { get; set; }
         [NotMapped]
