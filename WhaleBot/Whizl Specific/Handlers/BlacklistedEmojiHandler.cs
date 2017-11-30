@@ -20,6 +20,12 @@ namespace WhaleBot
             this.client = client;
             client.MessageReceived += Client_MessageReceived;
             client.ReactionAdded += Client_ReactionAdded;
+            client.MessageUpdated += Client_MessageUpdated;
+        }
+
+        private async Task Client_MessageUpdated(Cacheable<IMessage, ulong> arg1, SocketMessage arg2, ISocketMessageChannel arg3)
+        {
+            await CheckMessage(arg2);
         }
 
         private async Task Client_ReactionAdded(Cacheable<IUserMessage, ulong> arg1, ISocketMessageChannel arg2, SocketReaction arg3)
@@ -33,10 +39,15 @@ namespace WhaleBot
 
         private async Task Client_MessageReceived(SocketMessage arg)
         {
-            var guild = (arg.Channel as SocketGuildChannel).Guild;
-            if (guild.Id == 324282875035779072 && arg.ToString().ToLower().Contains("<:gw") && guild.CurrentUser.Nickname == "WhalyBot")
+            await CheckMessage(arg);
+        }
+
+        private async Task CheckMessage(SocketMessage mess)
+        {
+            var guild = (mess.Channel as SocketGuildChannel).Guild;
+            if (guild.Id == 324282875035779072 && mess.ToString().ToLower().Contains("<:gw") && guild.CurrentUser.Nickname == "WhalyBot")
             {
-                await arg.DeleteAsync();
+                await mess.DeleteAsync();
             }
         }
     }
